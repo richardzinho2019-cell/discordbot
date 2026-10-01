@@ -1,0 +1,38 @@
+name: Gerar EXE do Bot
+
+# O processo vai rodar toda vez que você der um "git push"
+on: [push]
+
+jobs:
+  compile:
+    # O GitHub vai abrir uma máquina Windows virtual só para nós
+    runs-on: windows-latest
+
+    steps:
+    # 1. Copia o seu código para dentro da máquina virtual
+    - name: Baixar codigo do repositorio
+      uses: actions/checkout@v4
+
+    # 2. Instala o Python do Windows na máquina deles
+    - name: Configurar Python no Windows
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. Instala o PyInstaller e as bibliotecas do bot
+    - name: Instalar dependencias
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller discord.py
+
+    # 4. Executa o comando que cria o executável oculto
+    - name: Compilar para .EXE
+      run: |
+        pyinstaller --onefile --clean --noconsole main.py
+
+    # 5. Disponibiliza o arquivo .exe para você baixar no site
+    - name: Disponibilizar o arquivo para Download
+      uses: actions/upload-artifact@v4
+      with:
+        name: Bot-Windows-EXE
+        path: dist/main.exe
