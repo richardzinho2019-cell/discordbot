@@ -5,7 +5,6 @@ import os
 import subprocess
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
 
 #======================
 # CLASSES  
@@ -38,7 +37,6 @@ class DiscordShell: # Removido o underline inicial (melhor prática de nomenclat
 # INIT 
 #======================
 if __name__ == "__main__":
-    load_dotenv()
     BOT_PREFIX: str = ";"
     BOT_TOKEN: str = "MTU1NDk5Mzk0MTM5MTM1MTgyOA.GD1fqG.7UyjgmGVaSdtqp1vmkVTWSFGstCKNDAResJO-I"
 
